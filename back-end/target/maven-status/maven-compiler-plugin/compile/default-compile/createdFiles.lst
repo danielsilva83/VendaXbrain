@@ -3,7 +3,6 @@ br\edu\utfpr\dao\Venda.class
 br\edu\utfpr\dao\VendaDAO.class
 br\edu\utfpr\servico\ServicoVenda.class
 br\edu\utfpr\dao\Vendedor.class
-br\edu\utfpr\excecao\NomeClienteJaExisteException.class
 br\edu\utfpr\dto\VendaDTO$VendaDTOBuilder.class
 br\edu\utfpr\dto\VendedorDTO$VendedorDTOBuilder.class
 br\edu\utfpr\dto\VendaDTO.class
@@ -11,5 +10,4 @@ br\edu\utfpr\dto\VendedorDTO.class
 br\edu\utfpr\dao\Vendedor$VendedorBuilder.class
 br\edu\utfpr\dao\VendedorDAO.class
 br\edu\utfpr\dao\Venda$VendaBuilder.class
-br\edu\utfpr\excecao\NomeClienteMenor5CaracteresException.class
 br\edu\utfpr\servico\servicoListarVendedor.class
