@@ -9,8 +9,8 @@ import lombok.Data;
 @Builder
 public class VendedorDTO {
     
-    private Long id;
-    private String nome;    
-    private double totalVenda;
-    private double mediaVendaDiaria;
+    private Long idVendedor;
+    private String nomeVendedor;    
+
+    
 }

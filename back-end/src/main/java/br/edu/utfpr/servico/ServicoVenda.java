@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import io.micrometer.core.ipc.http.HttpSender.Response;
 import java.time.LocalDate;
 
 
@@ -34,14 +33,20 @@ import java.time.LocalDate;
 public class ServicoVenda {
     
  private final List<VendaDTO> Vendas;
- private VendedorDTO vendedor;
+ private final  List<VendedorDTO> Vendedor;
 
     public ServicoVenda() {
-       
+      
+        Vendedor = Stream.of(
+            VendedorDTO.builder().idVendedor(Long.MIN_VALUE).nomeVendedor("Daniel").build(),
+            VendedorDTO.builder().idVendedor(Long.MIN_VALUE).nomeVendedor("Joao").build(),
+            VendedorDTO.builder().idVendedor(Long.MIN_VALUE).nomeVendedor("Marcio").build()                       
+        ).collect(Collectors.toList());
         
         Vendas = Stream.of(
-            VendaDTO.builder().id(Long.MIN_VALUE).datavenda(LocalDate.MIN).valor(100).vendedor((VendedorDTO) vendedor).build()
-        ).collect(Collectors.toList());
+            VendaDTO.builder().id(Long.MIN_VALUE).datavenda(LocalDate.MIN).valor(100).idVendedor(Vendedor.get(1)).build(),
+            VendaDTO.builder().id(Long.MIN_VALUE).datavenda(LocalDate.MIN).valor(200).idVendedor(Vendedor.get(2)).build()        
+       ).collect(Collectors.toList());
     }
 
     @GetMapping ("/servico/vendas")
@@ -50,6 +55,7 @@ public class ServicoVenda {
         return ResponseEntity.ok(Vendas);
     }
 
+    
     @GetMapping ("/servico/vendas/{id}")
     public ResponseEntity<VendaDTO> listarPorId(@PathVariable int id) {
         Optional<VendaDTO> vendedorEncontrado = Vendas.stream().filter(p -> p.getId() == id).findAny();
@@ -57,14 +63,15 @@ public class ServicoVenda {
         return ResponseEntity.of(vendedorEncontrado);
     }
 
+    
     @PostMapping ("/servico/vendas")
-    public ResponseEntity<VendaDTO> criar (@RequestBody VendaDTO vendedor) {
+    public ResponseEntity<VendaDTO> criar (@RequestBody VendaDTO vendas) {
 
-        vendedor.setId(Long.MIN_VALUE);
+        
                
-        Vendas.add(vendedor);
+        Vendas.add(vendas);
 
-        return ResponseEntity.status(201).body(vendedor);
+        return ResponseEntity.status(201).body(vendas);
     }
 
     @DeleteMapping ("/servico/vendas/{id}")
@@ -78,17 +85,17 @@ public class ServicoVenda {
     }
 
     @PutMapping ("/servico/vendas/{id}")
-    public ResponseEntity<VendaDTO> alterar (@PathVariable int id, @RequestBody VendaDTO vendedor) {
-        Optional<VendaDTO> vendedorExistente = Vendas.stream().filter(p -> p.getId() == id).findAny();
+    public ResponseEntity<VendaDTO> alterar (@PathVariable int id, @RequestBody VendaDTO venda) {
+        Optional<VendaDTO> vendaExistente = Vendas.stream().filter(p -> p.getId() == id).findAny();
 
-        vendedorExistente.ifPresent(p -> {
-            p.setId(vendedor.getId());
-            p.setDatavenda(vendedor.getDatavenda());
-            p.setValor(vendedor.getValor());
-            p.setVendedor(vendedor.getVendedor());
+        vendaExistente.ifPresent(p -> {
+            p.setId(venda.getId());
+            p.setDatavenda(venda.getDatavenda());
+            p.setValor(venda.getValor());
+            p.setIdVendedor(venda.getIdVendedor());
         });
 
-        return ResponseEntity.of(vendedorExistente);
+        return ResponseEntity.of(vendaExistente);
     }
     
 }
