@@ -7,7 +7,6 @@
 package br.edu.utfpr.dto;
 
 import java.time.LocalDate;
-import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,7 +16,7 @@ public class VendaDTO {
     private Long id;
     private LocalDate datavenda;
     private double valor;
-    private VendedorDTO vendedor;
+    protected VendedorDTO idVendedor;
 
 
     

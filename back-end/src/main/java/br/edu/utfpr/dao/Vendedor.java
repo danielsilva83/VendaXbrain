@@ -23,8 +23,7 @@ import lombok.NoArgsConstructor;
 public class Vendedor implements Serializable {
 
     @Id @GeneratedValue
-    private Long id;
+    private Long idVendedor;
     private String nome; 
-    private double totalVenda;
-    private double mediaVendaDiaria;
+ 
 }

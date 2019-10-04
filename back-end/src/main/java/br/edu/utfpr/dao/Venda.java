@@ -34,6 +34,6 @@ public class Venda implements Serializable {
     private double valor;
     
     @ManyToOne
-    private Vendedor nomeVendedor;
+    private Vendedor idVendedor;
     
 }
